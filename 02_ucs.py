@@ -96,6 +96,7 @@ def allActions(goalNode):
         goalNode = goalNode.parent
     ans.reverse()
     return ans
+
 print("Search started")
 start_time = time.time()
 ans = BestFS()
@@ -105,9 +106,9 @@ print("Total nodes expanded: ",Total_nodes_expanded)
 print("Time taken: ",elapsed_time)
 print()
 displayBoard(ans.state)
+
 print()
 print("Moves: ")
-
 moves = allActions(ans)
 for move in moves:
     print(move)

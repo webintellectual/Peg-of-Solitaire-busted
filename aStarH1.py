@@ -104,6 +104,14 @@ def aStar():
                 frontier.append(child)
         explored.append(curr.state)
 
+def allActions(goalNode):
+    ans = []
+    while goalNode.parent != None:
+        ans.append(goalNode.action)
+        goalNode = goalNode.parent
+    ans.reverse()
+    return ans
+
 print("Search started")
 start_time = time.time()
 ans = aStar()
@@ -113,4 +121,10 @@ print("Total nodes expanded: ",Total_nodes_expanded)
 print("Time taken: ",elapsed_time)
 print()
 displayBoard(ans.state)
+
+# print()
+# print("Moves: ")
+# moves = allActions(ans)
+# for move in moves:
+#     print(move)
 
