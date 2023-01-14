@@ -187,14 +187,22 @@ Node* uCostSearch(){ // returns Goal node
         // cout<<"Entered while true"<<endl;
         if(frontier.empty()) return NULL; // failure
         Node* nd = frontier.top();
+
+        // displayBoard(nd->state);
         cout<<"path cost: "<<(nd->pathCost)<<endl;
         cout<<endl;
+
         frontier.pop();
         if(explored.find(nd->state)!=explored.end()){
             continue;
         }
 
-        if(goalTest(nd->state)) return nd;
+        if(goalTest(nd->state)){ 
+            cout<<"Search ended"<<endl;
+            cout<<"Toatal nodes explored: "<<(explored.size())<<endl;
+            cout<<endl;
+            return nd;
+        }
 
         vector<Node*> children = getSuccessors(nd);
         // cout<<"children vector size: "<<children.size()<<endl;
@@ -208,10 +216,10 @@ Node* uCostSearch(){ // returns Goal node
            }
         }
         explored.insert(nd->state);
-        vector<vector<vector<int> > > eqs = equivalents(nd->state);
-        for(vector<vector<int> > eq : eqs){
-            explored.insert(eq);
-        }
+        // vector<vector<vector<int> > > eqs = equivalents(nd->state);
+        // for(vector<vector<int> > eq : eqs){
+        //     explored.insert(eq);
+        // }
     }
 }
 
@@ -219,7 +227,6 @@ int main(){
     Node* goal;
     cout<<"Search started"<<endl;
     goal = uCostSearch();
-    cout<<"Search ended"<<endl;
 
     for(int i=0; i<7; i++){
         for(int j=0; j<7; j++){

@@ -1,41 +1,34 @@
-from heapq import heapify, heappush, heappop
-
-def calHr(state):
-    ans=0
-    for i in range(7):
-        for j in range(7):
-            if state[i][j]==1:
-                H = abs(3-j)
-                V = abs(3-i)
-                ans+= 2**max(H,V)
-    return ans
+import time
 
 class Node:
     def __init__(self,st=[[2,2,1,1,1,2,2],[2,2,1,1,1,2,2],[1,1,1,1,1,1,1],[1,1,1,0,1,1,1],[1,1,1,1,1,1,1],[2,2,1,1,1,2,2],[2,2,1,1,1,2,2]],prt=None,pCost=0):
         self.state = st
         self.parent = prt
-        self.action = pCost
-        self.pathCost = 0 # g
-        self.value = calHr(self.state) # heuristic
-        self.f = self.pathCost + self.value
+        self.action = None
+        self.pathCost = pCost # g
     def __lt__(self, other):
-        return self.value < other.value # min heap
+        return self.pathCost < other.pathCost # min heap
 
 goal = [[2,2,0,0,0,2,2],[2,2,0,0,0,2,2],[0,0,0,0,0,0,0],[0,0,0,1,0,0,0],[0,0,0,0,0,0,0],[2,2,0,0,0,2,2],[2,2,0,0,0,2,2]]
 def goalTest(state):
     return state==goal
 
-def heuritic(i,j):
-    H = abs(3-j)
-    V = abs(3-i)
-    return 2**max(H,V)
-
+Total_nodes_expanded = 0
 def getSuccessors(node):
     ans = []
-    dx2 = [-2,2,0,0]
-    dy2 = [0,0,2,-2]
-    dx1 = [-1,1,0,0]
-    dy1 = [0,0,1,-1]
+
+    # Good order of moves # NSEW
+    dx2 = [0,0,2,-2]
+    dy2 = [-2,2,0,0]
+    dx1 = [0,0,1,-1]
+    dy1 = [-1,1,0,0]
+
+    # Bad order or moves #WESN
+    # dx2 = [-2,2,0,0]
+    # dy2 = [0,0,2,-2]
+    # dx1 = [-1,1,0,0]
+    # dy1 = [0,0,1,-1]
+
     for i in range(7):
         for j in range(7):
             if node.state[i][j]==1:
@@ -49,20 +42,18 @@ def getSuccessors(node):
                     # print("c2i, c2j: ",c2i,c2j)
                     if(c2i<0 or c2i>=7 or c2j<0 or c2j>=7):
                         continue
+                    if(node.state[c1i][c1j]==0):
+                        continue
                     if(node.state[c2i][c2j]==0):
                         stateCpy = [obj.copy() for obj in node.state]
-                        hr = node.value
-                        hr -= heuritic(i,j)
-                        hr -= heuritic(c1i,c1j)
-                        hr += heuritic(c2i,c2j)
                         child = Node(stateCpy,node,node.pathCost+1)
-                        child.value = hr
-                        child.f = child.pathCost + child.value
                         child.state[c2i][c2j]=1
                         child.state[c1i][c1j]=0
                         child.state[i][j]=0
                         child.action = [[i,j],[c2i,c2j]]
                         ans.append(child)
+                        global Total_nodes_expanded
+                        Total_nodes_expanded +=1
     return ans
 
 
@@ -72,8 +63,8 @@ def displayBoard(state):
 
 def aStar():
     start_node = Node()
-    frontier = [] # keep nodes
-    explored = {} # keep states which are explored
+    frontier = [] # keep nodes # we can use list directly as a heap in python. append() and pop() for push and pop
+    explored = [] # keep states which are explored
 
     frontier.append(start_node)
     while True:
@@ -81,10 +72,16 @@ def aStar():
         if len(frontier)==0:
             return None
         curr = frontier.pop()
-        # displayBoard(curr.state)
+
+        displayBoard(curr.state)
+        print("Path cost: ", curr.pathCost)
+        print()
+
         if curr.state in explored:
             continue
         if goalTest(curr.state) == True:
+            print("Search ended")
+            print("Total nodes explored: ", len(explored)) 
             return curr
         children = getSuccessors(curr)
         for child in children:
@@ -92,7 +89,13 @@ def aStar():
                 frontier.append(child)
         explored.append(curr.state)
 
+print("Search started")
+start_time = time.time()
 ans = aStar()
-print("search ended")
+end_time = time.time()
+elapsed_time = end_time - start_time
+print("Total nodes expanded: ",Total_nodes_expanded)
+print("Time taken: ",elapsed_time)
+print()
 displayBoard(ans.state)
 
