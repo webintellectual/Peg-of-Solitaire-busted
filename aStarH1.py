@@ -6,12 +6,19 @@ class Node:
         self.parent = prt
         self.action = None
         self.pathCost = pCost # g
+
+        self.h = 88 # I already calculated MD for initial state
+        self.f = self.pathCost + self.h
+
     def __lt__(self, other):
-        return self.pathCost < other.pathCost # min heap
+        return self.f < other.f # min heap
 
 goal = [[2,2,0,0,0,2,2],[2,2,0,0,0,2,2],[0,0,0,0,0,0,0],[0,0,0,1,0,0,0],[0,0,0,0,0,0,0],[2,2,0,0,0,2,2],[2,2,0,0,0,2,2]]
 def goalTest(state):
     return state==goal
+
+def MD(i,j):
+    return abs(3-i)+abs(3-j)
 
 Total_nodes_expanded = 0
 def getSuccessors(node):
@@ -51,6 +58,14 @@ def getSuccessors(node):
                         child.state[c1i][c1j]=0
                         child.state[i][j]=0
                         child.action = [[i,j],[c2i,c2j]]
+
+                        chr = node.h
+                        chr -= MD(i,j)
+                        chr -= MD(c1i,c1j)
+                        chr += MD(c2i,c2j)
+                        child.h = chr
+                        child.f = child.pathCost + child.h
+
                         ans.append(child)
                         global Total_nodes_expanded
                         Total_nodes_expanded +=1
@@ -61,7 +76,7 @@ def displayBoard(state):
     for row in state:
         print(row)
 
-def BestFS():
+def aStar():
     start_node = Node()
     frontier = [] # keep nodes # we can use list directly as a heap in python. append() and pop() for push and pop
     explored = [] # keep states which are explored
@@ -89,25 +104,13 @@ def BestFS():
                 frontier.append(child)
         explored.append(curr.state)
 
-def allActions(goalNode):
-    ans = []
-    while goalNode.parent != None:
-        ans.append(goalNode.action)
-        goalNode = goalNode.parent
-    ans.reverse()
-    return ans
 print("Search started")
 start_time = time.time()
-ans = BestFS()
+ans = aStar()
 end_time = time.time()
 elapsed_time = end_time - start_time
 print("Total nodes expanded: ",Total_nodes_expanded)
 print("Time taken: ",elapsed_time)
 print()
 displayBoard(ans.state)
-print()
-print("Moves: ")
 
-moves = allActions(ans)
-for move in moves:
-    print(move)
