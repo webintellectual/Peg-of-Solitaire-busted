@@ -1,7 +1,7 @@
 import time
 
 """
-[⚠ Do Not Remove this comment] Author : Akshay
+Author : Akshay Rajput
 © Anyone must take permission form me and mention my social handles in 
 the references/attributes before using this code in their work or project.
 Linkedin: https://www.linkedin.com/in/akshay-189a48200/
