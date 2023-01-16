@@ -6,6 +6,17 @@
 #include<unordered_map>
 using namespace std;
 
+/* [⚠ Do Not Remove this comment] Author : Akshay
+© Anyone must take permission form me and mention my social handles in 
+the references/attributes before using this code in their work or project.
+Linkedin: https://www.linkedin.com/in/akshay-189a48200/
+Twitter: https://twitter.com/notifications
+Medium: https://medium.com/@warriorak77
+GitHub: https://github.com/webintellectual
+Website: https://akshaysworklife.bio.link/
+ */ 
+
+
 struct Node{
     vector<vector<int> > state; // identity of a node
     struct Node* parent; // parent size = 0 => No parent
@@ -44,7 +55,7 @@ struct compareCost {
 	{
 		// return "true" if "n1" is ordered
 		// before "n2", for example:
-		return n1->pathCost > n2->pathCost; // min heap
+		return n1->pathCost > n2->pathCost; // min heap // flag!
 	}
 };
 

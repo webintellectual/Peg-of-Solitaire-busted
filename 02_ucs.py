@@ -1,5 +1,16 @@
 import time
 
+"""
+[⚠ Do Not Remove this comment] Author : Akshay
+© Anyone must take permission form me and mention my social handles in 
+the references/attributes before using this code in their work or project.
+Linkedin: https://www.linkedin.com/in/akshay-189a48200/
+Twitter: https://twitter.com/notifications
+Medium: https://medium.com/@warriorak77
+GitHub: https://github.com/webintellectual
+Website: https://akshaysworklife.bio.link/
+"""
+
 class Node:
     def __init__(self,st=[[2,2,1,1,1,2,2],[2,2,1,1,1,2,2],[1,1,1,1,1,1,1],[1,1,1,0,1,1,1],[1,1,1,1,1,1,1],[2,2,1,1,1,2,2],[2,2,1,1,1,2,2]],prt=None,pCost=0):
         self.state = st
@@ -7,7 +18,7 @@ class Node:
         self.action = None
         self.pathCost = pCost # g
     def __lt__(self, other):
-        return self.pathCost < other.pathCost # min heap
+        return self.pathCost < other.pathCost # min
 
 goal = [[2,2,0,0,0,2,2],[2,2,0,0,0,2,2],[0,0,0,0,0,0,0],[0,0,0,1,0,0,0],[0,0,0,0,0,0,0],[2,2,0,0,0,2,2],[2,2,0,0,0,2,2]]
 def goalTest(state):
