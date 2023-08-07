@@ -18,7 +18,7 @@ class Node:
         self.action = None
         self.pathCost = pCost # g
     def __lt__(self, other):
-        return self.pathCost < other.pathCost # min
+        return self.pathCost < other.pathCost # min heap
 
 goal = [[2,2,0,0,0,2,2],[2,2,0,0,0,2,2],[0,0,0,0,0,0,0],[0,0,0,1,0,0,0],[0,0,0,0,0,0,0],[2,2,0,0,0,2,2],[2,2,0,0,0,2,2]]
 def goalTest(state):
@@ -33,6 +33,7 @@ def getSuccessors(node):
     dy2 = [-2,2,0,0]
     dx1 = [0,0,1,-1]
     dy1 = [-1,1,0,0]
+    # y-> i, x -> j
 
     # Bad order of direction #WESN
     # dx2 = [-2,2,0,0]

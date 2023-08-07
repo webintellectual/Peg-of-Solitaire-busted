@@ -5,8 +5,7 @@ Moves: We can pick only a marble that is 2 unit distance away from an empty hole
 <br>
 <br>
 
-- My C++ implementaion is taking idefinite time to solve the puzzle but python implementation is working like a charm.
-- UCS stands for Uniform Cost Search
+Objective: Finding list of moves to reach goal state of board (only one peg presenr and at center) in reasonable time.
 
 To understand my work fully refer my medium article: https://medium.com/@warriorak77/peg-of-solitaire-game-busted-with-ai-c5f73466f8c3
 

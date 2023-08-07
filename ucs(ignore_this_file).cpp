@@ -6,14 +6,8 @@
 #include<unordered_map>
 using namespace std;
 
-/* Author : Akshay Rajput
-© Anyone must take permission form me and mention my social handles in 
-the references/attributes before using this code in their work or project.
-Linkedin: https://www.linkedin.com/in/akshay-189a48200/
-Twitter: https://twitter.com/notifications
-Medium: https://medium.com/@warriorak77
-GitHub: https://github.com/webintellectual
-Website: https://akshaysworklife.bio.link/
+/* 
+This code is not working (taking indefinite time). Ignore it.
  */ 
 
 
